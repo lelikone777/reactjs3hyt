@@ -6,6 +6,7 @@ import PostItem from "./Components/PostItem";
 import PostList from "./Components/PostList";
 import MyButton from "./Components/UI/button/MyButton";
 import MyInput from "./Components/UI/input/MyInput";
+import PostFormy from "./Components/PostFormy";
 
 function App() {
 
@@ -16,36 +17,14 @@ function App() {
             {id:3, title: 'Javascript3', body: 'Javascript - язык программирования3'}
       ])
 
-    const [post,setPost] = useState({title: '', body: ''})
-
-    const addNewPost = (e) => {
-          e.preventDefault()
-
-        setPosts([...posts, {...post, id: Date.now}])
-        setPost({title: '', body: ''})
-      }
-
+    const createPost = (newPost) => {
+        setPosts([...posts, newPost])
+    }
 
 
       return (
         <div className="App">
-            <form>
-                {/*Управляемый компонент*/}
-                <MyInput
-                    value={post.title}
-                    onChange={e => setPost({...post, title: e.target.value})}
-                    type="text"
-                    placeholder="Название поста"
-                />
-                {/*Неуправляемый/Неконтролируемый компонент*/}
-                <MyInput
-                    value={post.body}
-                    onChange={e => setPost({...post, body: e.target.value})}
-                    type="text"
-                    placeholder="Опичание поста"
-                />
-                <MyButton onClick={addNewPost}>Создать пост</MyButton>
-            </form>
+                <PostFormy create={createPost}/>
               <PostList posts={posts} title='Список Постов1'/>
         </div>
       );
